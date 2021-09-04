@@ -647,12 +647,16 @@ static shaderInfo_t *AllocShaderInfo( void ){
 
 	si->backsplashFraction = DEF_BACKSPLASH_FRACTION;
 	si->backsplashDistance = DEF_BACKSPLASH_DISTANCE;
+	si->backsplashLinear = qfalse;
+	si->backsplashLinearFade = 1.0f;
 
 	si->bounceScale = DEF_RADIOSITY_BOUNCE;
 
 	si->lightStyle = LS_NORMAL;
 
 	si->polygonOffset = qfalse;
+
+	si->surfLightDistance = 1.0f;
 
 	si->shadeAngleDegrees = 0.0f;
 	si->lightmapSampleSize = 0;

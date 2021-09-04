@@ -691,10 +691,10 @@ typedef struct shaderInfo_s
 	float subdivisions;                                 /* from a "tesssize xxx" */
 	float backsplashFraction;                           /* floating point value, usually 0.05 */
 	float backsplashDistance;                           /* default 16 */
+	qb_t backsplashLinear;								/* default false, if true, backsplash lights are linear */
+	float backsplashLinearFade;							/* fade amount for linear backsplash lights */
 	float lightSubdivide;                               /* default 999 */
 	float lightFilterRadius;                            /* ydnar: lightmap filtering/blurring radius for lights created by this shader (default: 0) */
-	qb_t lightLinear;
-	float lightLinearFade;
 	float surfLightDistance;                            /* vmap addition */
 
 	int lightmapSampleSize;                             /* lightmap sample size */

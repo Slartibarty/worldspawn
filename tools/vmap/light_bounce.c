@@ -588,9 +588,18 @@ static void RadSubdivideDiffuseLight( int lightmapNum, bspDrawSurface_t *ds, raw
 
 			/* set it up */
 			splash->flags = LIGHT_Q3A_DEFAULT;
+			/* optionally make it linear */
+			if ( si->backsplashLinear ) {
+				splash->flags |= LIGHT_ATTEN_LINEAR;
+				splash->flags &= ~LIGHT_ATTEN_ANGLE;
+			}
+
 			splash->type = EMIT_POINT;
 			splash->photons = light->photons * si->backsplashFraction;
 			splash->fade = 1.0f;
+			if ( splash->flags & LIGHT_ATTEN_LINEAR ) {
+				splash->fade = si->backsplashLinearFade;
+			}
 			splash->si = si;
 			VectorMA( light->origin, si->backsplashDistance, normal, splash->origin );
 			VectorCopy( si->color, splash->color );

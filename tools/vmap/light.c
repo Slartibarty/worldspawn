@@ -402,8 +402,8 @@ void CreateEntityLights( void ){
 				float lb;
 				int subd;
 				int style;
-				float bscale, bsfrac, bsdist;
-				float ascale;
+				float bscale, bsfrac, bsdist, bsfade;
+				float ascale, scale;
 
 				if (!stristr(si->shader, surfacename))
 					continue;
@@ -418,6 +418,14 @@ void CreateEntityLights( void ){
 					lb = FloatForKey( e, "light" );
 				}
 
+				/* To prevent light values from getting out of hand on small
+				 * surfaces, users can use "scale" to directly scale the light
+				 */
+				scale = FloatForKey( e, "scale" );
+				if ( scale ) {
+					lb *= scale;
+				}
+
 				subd = IntForKey( e, "subdivisions" );
 				style = IntForKey( e, "style" );
 				bscale = FloatForKey( e, "bouncescale" );
@@ -427,6 +435,10 @@ void CreateEntityLights( void ){
 
 				/* 23 units apparently is the default */
 				bsdist = FloatForKey( e, "backsplash_distance" );
+
+				/* fade for backsplash */
+				bsfade = FloatForKey( e, "backsplash_fade" );
+
 				ascale = FloatForKey( e, "areascale" );
 
 				/* only apply when things are set. */
@@ -444,6 +456,10 @@ void CreateEntityLights( void ){
 					si->backsplashFraction = bsfrac;
 				if (bsdist)
 					si->backsplashDistance = bsdist;
+				if (bsfade) {
+					si->backsplashLinear = qtrue;
+					si->backsplashLinearFade = bsfade;
+				}
 
 				_color = ValueForKey( e, "color" );
 				if ( _color && _color[ 0 ] ) {
