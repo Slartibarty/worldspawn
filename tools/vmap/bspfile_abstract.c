@@ -1064,8 +1064,9 @@ void GetEntityShadowFlags( const entity_t *ent, const entity_t *ent2, int *castS
 	/* get cast shadows */
 	if ( castShadows != NULL ) {
 		value = ValueForKey( ent, "zhlt_lightflags" );
-		if ( value && value[ 0 ] != '\0' ) {
-			*castShadows = atoi( value ) & 0x2;
+		if ( value[ 0 ] != '\0' ) {
+			/* bit 2 indicates opaqueness, convert it to a boolean */
+			*castShadows = !!( atoi( value ) & 0x2 );
 		}
 		else {
 			value = ValueForKey( ent, "_castShadows" );
